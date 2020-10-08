@@ -1,0 +1,36 @@
+<!-- <center> -->
+<div class="home-container">
+    <div class="main-container">
+        <app-navbar></app-navbar>
+        <div>
+           
+            <div *ngFor="let item of news">
+                <div class="single_news">
+                    <div> <span class="news_id">{{item.id}}.</span>
+                        <span class="material-icons news_id">
+                            arrow_drop_up
+                        </span>
+                        <span class="news_id"><a href="{{item.articleLink}}" class="titlelink" target="_blank">{{item.title}}</a>
+                            <span class="news-link"> ({{item.link}})</span>
+                        </span></div>
+                    <div>
+                        <span class="news-link details">{{item.pointCount}} point by {{item.by}} {{item.minutes}}
+                            minutes ago
+                            | <a class="sublinks" href="login">hide</a>
+                            | <a class="sublinks" href="home">past</a>
+                            | <a class="sublinks" href="home">favourite</a>
+                            | <a class="sublinks" (click)="redirectTo(item)" *ngIf="item.comments.length == 0">discuss</a>
+                            <a class="sublinks" (click)="redirectTo(item)"
+                                *ngIf="item.comments.length != 0">{{item.comments.length}}
+                                comment</a>
+                        </span>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <app-footer></app-footer>
+
+    </div>
+</div>
+<!-- </center> -->

@@ -1,0 +1,49 @@
+<div class="home-container">
+    <div class="main-container">
+        <app-navbar></app-navbar>
+        <div>
+            <a href="home">Back To home</a>
+        </div>
+        <div class="single_news">
+            <div class="title">
+                <span class="material-icons news_id">
+                    arrow_drop_up
+                </span>
+                <span>{{news.title}}
+                    <span class="news-link"> ({{news.link}})</span>
+                </span>
+            </div>
+
+            <div>
+                <span class="news-link details">{{news.pointCount}} point by {{news.by}} {{news.minutes}}
+                    minutes ago
+                    | <a class="sublinks" href="login">hide</a>
+                    | <a class="sublinks" href="home">past</a>
+                    | <a class="sublinks" (click)="redirectTo(news)" *ngIf="news.comments.length == 0">discuss</a>
+                    <a class="sublinks" (click)="redirectTo(news)"
+                        *ngIf="news.comments.length != 0">{{news.commentsCount}}
+                        comment</a>
+                </span>
+            </div>
+            <div>
+                <textarea class="comment-field" rows="7" [(ngModel)]="commenttext"></textarea>
+            </div>
+            <button mat-raised-button class="add-btn" (click)="addComment()">Add Comment</button>
+
+            <div *ngIf="news.comments.length != 0">
+                <div *ngFor="let comment of news.comments;let i = index">
+                    <div style="padding: 8px">
+                        <div class="news-link details">{{i+1}}. {{comment.name}}
+                        </div>
+                        <div class="comment-text ">{{comment.comment}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+           <app-footer></app-footer>
+
+        </div>
+
+    </div>
+</div>

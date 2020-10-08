@@ -1,0 +1,35 @@
+.main-container{
+    background-color: #f6f6ef;
+    width: 85%;
+}
+.home-container{
+    display: flex;
+    justify-content: center;
+}
+.news_id{
+    color: #828282;
+    font-size: 14px;
+}
+.single_news {
+    padding: 8px;
+}
+.news-link {
+    color: #828282;
+    font-size: 12px;    
+}
+.details{
+    margin-left: 2%;
+    font-size: 11px;    
+
+}
+.sublinks {
+    color: #828282;
+    font-size: 11px;  
+    text-decoration: none;
+    cursor: pointer;
+}
+.titlelink {
+    text-decoration: none;
+    color: #828282;
+
+}
