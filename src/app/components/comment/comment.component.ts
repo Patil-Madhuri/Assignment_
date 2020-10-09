@@ -36,6 +36,7 @@ export class CommentComponent implements OnInit {
       commentsCount: this.news.commentsCount++,
       comments: commentsArray
     }
+    this.news = newObj;
     this.commenttext = "";
     let foundIndex = this.newsList.findIndex(obj => obj.id === this.news.id)
     this.newsList.splice(foundIndex + 1, 1)

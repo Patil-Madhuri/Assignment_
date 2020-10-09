@@ -21,7 +21,7 @@
                     | <a class="sublinks" href="home">past</a>
                     | <a class="sublinks" (click)="redirectTo(news)" *ngIf="news.comments.length == 0">discuss</a>
                     <a class="sublinks" (click)="redirectTo(news)"
-                        *ngIf="news.comments.length != 0">{{news.commentsCount}}
+                        *ngIf="news.comments.length != 0">{{news.comments.length}}
                         comment</a>
                 </span>
             </div>
