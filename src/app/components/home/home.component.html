@@ -3,7 +3,9 @@
     <div class="main-container">
         <app-navbar></app-navbar>
         <div>
-           
+            <div style="position: absolute;right: 9%;">
+                <span>No of News: {{news.length}}</span>
+            </div>
             <div *ngFor="let item of news">
                 <div class="single_news">
                     <div> <span class="news_id">{{item.id}}.</span>
