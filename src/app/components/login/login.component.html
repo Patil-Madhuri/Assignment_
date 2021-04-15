@@ -2,15 +2,13 @@
     <div fxFlex=100 fxLayout="row" fxLayoutAlign="center center" style="height: 100vh;">
         <mat-card fxFlex="center space-around" class="login-card" fxFlex="520px">
             <div fxLayout="column" fxLayoutAlign="center center">
-                <div class="avatar-div" fxLayoutAlign="center center">
-                    <img class="avatar" src="../../../assets/logo.jpg">
-                </div>
+                <h2>Store Login</h2>
                 <div class="form-div">
                     <mat-form-field appearance="outline" class="form-field">
-                        <mat-label>Email</mat-label>
-                        <input matInput autocomplete="off" formControlName="email" >
-                        <mat-error *ngIf="!loginForm.controls['email'].valid && loginForm.controls['email'].touched">
-                            {{ getErrorMessage('email', 'Email') }} </mat-error>
+                        <mat-label>Username</mat-label>
+                        <input matInput autocomplete="off" formControlName="username" >
+                        <mat-error *ngIf="!loginForm.controls['username'].valid && loginForm.controls['username'].touched">
+                            {{ getErrorMessage('username', 'Username') }} </mat-error>
                     </mat-form-field>
                 </div>
                 <div class="form-div">
@@ -22,7 +20,7 @@
                             {{ getErrorMessage('password', 'Password') }} </mat-error>
                     </mat-form-field>
                 </div>
-                <div class="button-div">
+                <div class="button-div" fxLayoutAlign="end end">
                     <button mat-button type="submit" class="login-button" >Login</button>
                 </div>
             </div>

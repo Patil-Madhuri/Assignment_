@@ -1,0 +1,76 @@
+<!-- <center> -->
+<div class="home-container">
+    <div class="main-container">
+        <mat-toolbar color="primary">
+            <span>Order</span>
+            <span class="example-spacer"></span>
+            <button mat-button class="admin-btn" (click)="redirectTo()">Store</button>
+
+        </mat-toolbar>
+        <div class="main-div">
+            <div class="mg1">
+                <div>
+                    <h4>Order History</h4>
+                </div>
+                <div *ngFor="let item of orderHistory['response'].order; let i=index">
+                    <!-- <div *ngFor="let item of orderHistory; let i=index"> -->
+
+                    <div fxLayout="row">
+                        <div fxFlex="20px">
+                            {{i+1}}.
+                        </div>
+                        <div>
+                            {{item.date | date: 'MMMM d, y, h:mm a'}}
+
+                            [<a (click)="openViewDialog(item)" class="view">View</a>]
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mg1">
+                <h4>Current Order(s):</h4>
+            </div>
+
+            <div>
+                <div *ngFor="let item of ordersList['response'].order; let i=index" fxLayout="row">
+                    <mat-card class="card">
+                        <div fxLayout="row">
+                            <div class="rightborder index" fxFlex="40px">
+                                {{i+1}}
+                            </div>
+                            <div class="rightborder" fxFlex="50">
+                                <div>
+                                    <p>Item: {{item.title}}</p>
+                                    <p>Barcode Number: {{item.barcode}}</p>
+                                    <p>Quantity: {{item.qty}}</p>
+                                </div>
+                            </div>
+                            <div fxFlex="20">
+                                <div>
+                                    <p>Price: $ {{item.price}}</p>
+                                    <p>Tax: $ {{item.tax}}</p>
+                                    <p>Total:$ {{item.price * item.qty}}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </mat-card>
+                </div>
+                <div class="mg-47">
+                    Grand Total : {{returnGT()}}
+                    <!-- + tax  -->
+                </div>
+                <div class="mg1">
+                    <div fxFlex="70" fxLayoutGap="30px">
+                        <button mat-raised-button color="warn" (click)="removeOrders('remove')">Remove</button>
+                        <button mat-raised-button color="accent" (click)="redirectTo()">Cancel</button>
+                    </div>
+                    <div fxFlex="20">
+                        <button mat-raised-button color="primary" (click)="removeOrders('complete')">Complete Order</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

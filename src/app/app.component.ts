@@ -1,5 +1,5 @@
-import { Component, OnInit, HostListener } from '@angular/core';
-import { Router, NavigationEnd } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -8,18 +8,8 @@ import { Router, NavigationEnd } from '@angular/router';
 })
 export class AppComponent implements OnInit {
 
-  title = 'snapwork';
-  // @HostListener('window:beforeunload', ['$event']) beforeUnload($event) {
-  //   console.log("refresshed");
-  //   event.preventDefault();
-  //   $event.returnValue = true;
-  //   localStorage.setItem('token', '');
-  //   this.router.navigate(['login']);
-  //   return "Your data will be lost!"
-  // }
-
+  title = 'assignment';
   constructor(private router: Router) { }
   ngOnInit() {
-    // this.router.navigate(['login']) 
   }
 }

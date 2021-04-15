@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Validators, FormGroup, FormBuilder } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
+import { ApiService } from 'src/app/shared-modules/api.service';
 
 @Component({
   selector: 'app-login',
@@ -12,17 +14,18 @@ export class LoginComponent implements OnInit {
   hide;
   constructor(
     private formBuilder: FormBuilder,
-    private router: Router
+    private router: Router,
+    private apiService: ApiService,
+    private snackBar: MatSnackBar
   ) { }
 
   ngOnInit() {
     this.formInit();
   }
-  formInit(){
+  formInit() {
     this.loginForm = this.formBuilder.group({
-      email: ['admin@gmail.com', Validators.compose([Validators.required, Validators.maxLength(50),
-        Validators.pattern('^([a-zA-Z0-9][.-]?)+@([a-zA-Z0-9]+[.-]?)*[a-zA-Z0-9][.][a-zA-Z]{2,3}$')])],
-        password:['admin', Validators.compose([Validators.required])]
+      username: ['', Validators.compose([Validators.required, Validators.maxLength(50)])],
+      password: ['', Validators.compose([Validators.required])]
     })
   }
 
@@ -50,9 +53,20 @@ export class LoginComponent implements OnInit {
       }
     }
   }
+  login() {
+    let postData = this.loginForm.value
+    this.apiService.login(postData).subscribe(response => {
 
-  login(){
-    localStorage.setItem('token', 'qwertyuioasdfghjkxcvbnmsdfghjk123456789')
-    this.router.navigate(['home']);
+      if (response['response'] == null) {
+        this.snackBar.open("Please enter valid login details", '', {
+          duration: 2000,
+        });
+      } else {
+        localStorage.setItem('type', response['response'].type);
+        localStorage.setItem('username', response['response'].username);
+        this.router.navigate(['home'])
+      }
+
+    })
   }
 }

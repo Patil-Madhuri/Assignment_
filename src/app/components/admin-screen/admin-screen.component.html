@@ -2,18 +2,19 @@
 <div class="home-container">
     <div class="main-container">
         <mat-toolbar color="primary">
-            <span>Store Front – Sales Personnel Login {{userName}}</span>
+            <span>Store Backend – Admin Personnel Login {{userName}}</span>
             <span class="example-spacer"></span>
-            <button mat-button class="admin-btn" *ngIf="isAdmin == 'true'" (click)="redirectTo('admin')">Admin</button>
+            <button mat-button class="admin-btn" (click)="redirectTo()">Store</button>
         </mat-toolbar>
         <div class="main-div">
-            <div class="center-align">
-               <div fxFlex="95">
-                <h4>Today's Date: {{currentDate | date: 'MMMM d, y'}}</h4>
-               </div>
-                <button mat-button class="add-btn" (click)="redirectTo('orders')">Orders</button>
-            </div>
+            <div class="mg-left">
+                <div>
+                    <h4>Today's Date: {{currentDate | date: 'MMMM d, y'}}</h4>
+                </div>
 
+                <button mat-button class="add-btn" (click)="addNew()">Add New</button>
+
+            </div>
             <div *ngFor="let item of jsonArray; let i=index" fxLayout="row">
                 <mat-card class="card">
                     <div fxLayout="row">
@@ -23,7 +24,7 @@
                         <div class="rightborder" fxFlex="30">
                             <div>
                                 <p>Title: {{item.title}}</p>
-                                <p>Color: {{item.color}}</p>
+                                <p>Colour: {{item.color}}</p>
                             </div>
                         </div>
                         <div class="rightborder" fxFlex="30">
@@ -41,10 +42,12 @@
                         </div>
                     </div>
                 </mat-card>
-                <div class="center">
-                    <button mat-button class="add-btn" *ngIf="item.reason == 'NA'" (click)="addOrder(item)">Add</button>
-                    <button mat-mini-fab color="warn" *ngIf="item.reason != 'NA'">
-                        <mat-icon>block</mat-icon>
+                <div class="center" fxLayoutGap="10px">
+                    <button mat-mini-fab color="primary" (click)="addNew(item)">
+                        <mat-icon>edit</mat-icon>
+                    </button>
+                    <button mat-mini-fab color="warn">
+                        <mat-icon>delete_forever</mat-icon>
                     </button>
                 </div>
             </div>

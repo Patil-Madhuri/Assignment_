@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { newsList } from '../../shared-modules/constant';
 import { Router } from '@angular/router';
+import { ApiService } from 'src/app/shared-modules/api.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-home',
@@ -8,16 +9,42 @@ import { Router } from '@angular/router';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-  news = [];
-  constructor(private router: Router) {
-    localStorage.setItem('news', JSON.stringify(newsList))
+  currentDate = new Date();
+  isAdmin
+  userName=""
+  jsonArray = []
+  constructor(private router: Router,
+    private apiService: ApiService,
+    private snackBar: MatSnackBar) {
   }
 
   ngOnInit(): void {
-    this.news = JSON.parse(localStorage.getItem('news'));
+    this.isAdmin = localStorage.getItem('type')
+    this.userName = localStorage.getItem('username')
+    this.getProducts();
   }
-  redirectTo(object) {
-    localStorage.setItem('singlenews', JSON.stringify(object));
-    this.router.navigate(['comments']);
+  getProducts() {
+    this.apiService.getAllProducts().subscribe(response => {
+      this.jsonArray = response['response'];
+    })
   }
+  addOrder(item) {
+    let postData = {
+      "id": item.id,
+      "title": item.title,
+      "barcode": item.barcode,
+      "qty": item.qunatity,
+      "price": item.price
+
+    }
+    this.apiService.addOrder(postData).subscribe(response => {
+      this.snackBar.open("Item added to order successfully", '', {
+        duration: 2000,
+      });
+    })
+  }
+  redirectTo(url){
+    this.router.navigate([url])
+  }
+
 }

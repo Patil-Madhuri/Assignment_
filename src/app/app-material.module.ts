@@ -9,6 +9,8 @@ import {MatDividerModule} from '@angular/material/divider';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 
 @NgModule({
@@ -22,6 +24,8 @@ import { FlexLayoutModule } from '@angular/flex-layout';
         MatToolbarModule,
         MatIconModule,
         MatDividerModule,
+        MatDialogModule,
+        MatSnackBarModule,
         FlexLayoutModule
     ],
     exports: [
@@ -33,7 +37,9 @@ import { FlexLayoutModule } from '@angular/flex-layout';
         ReactiveFormsModule,
         MatToolbarModule,
         MatIconModule,
+        MatDialogModule,
         MatDividerModule,
+        MatSnackBarModule,
         FlexLayoutModule
     ]
 })
