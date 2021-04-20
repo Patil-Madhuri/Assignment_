@@ -42,8 +42,8 @@
                     </div>
                 </mat-card>
                 <div class="center">
-                    <button mat-button class="add-btn" *ngIf="item.reason == 'NA'" (click)="addOrder(item)">Add</button>
-                    <button mat-mini-fab color="warn" *ngIf="item.reason != 'NA'">
+                    <button mat-button class="add-btn" *ngIf="item.reason == 'NA' || item.reason == '' ||  item.reason == 'na'" (click)="addOrder(item)">Add</button>
+                    <button mat-mini-fab color="warn" *ngIf="item.reason != 'NA' && item.reason != '' && item.reason != 'na'">
                         <mat-icon>block</mat-icon>
                     </button>
                 </div>

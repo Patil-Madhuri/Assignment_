@@ -29,12 +29,14 @@ export class HomeComponent implements OnInit {
     })
   }
   addOrder(item) {
+    console.log("item", item);
+    
     let postData = {
       "id": item.id,
       "title": item.title,
       "barcode": item.barcode,
-      "qty": item.qunatity,
-      "price": item.price
+      "qty": item.qty ,
+      "price": item.price * item.qty
 
     }
     this.apiService.addOrder(postData).subscribe(response => {
