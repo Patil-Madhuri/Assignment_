@@ -9,27 +9,14 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 })
 export class ViewOrderComponent implements OnInit {
   masterFormGroup: FormGroup
-  isEdit = false;
   constructor(@Inject(MAT_DIALOG_DATA) public data: any,
     public dialogRef: MatDialogRef<ViewOrderComponent>, private fb: FormBuilder) { }
 
   ngOnInit(): void {
-    this.formInit();
-
+    console.log(this.data);
+    
   }
 
-  formInit() {
-
-    this.masterFormGroup = this.fb.group({
-      id: [''],
-      title: ['', Validators.required],
-      color: ['', Validators.required],
-      barcode: ['', Validators.required],
-      qty: ['', Validators.required],
-      price: ['', Validators.required]
-    })
-    this.masterFormGroup.patchValue(this.data);
-  }
   closeForm(data) {
     this.dialogRef.close({ data: data });
   }

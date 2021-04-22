@@ -12,7 +12,7 @@
                 <div>
                     <h4>Order History</h4>
                 </div>
-                <div *ngFor="let item of orderHistory['response'].order; let i=index">
+                <div *ngFor="let item of orderHistory; let i=index">
                     <!-- <div *ngFor="let item of orderHistory; let i=index"> -->
 
                     <div fxLayout="row">
@@ -20,7 +20,7 @@
                             {{i+1}}.
                         </div>
                         <div>
-                            {{item.date | date: 'MMMM d, y, h:mm a'}}
+                            {{item.date | date: 'MMMM d, y, h:mm:ss a'}}
 
                             [<a (click)="openViewDialog(item)" class="view">View</a>]
                         </div>
@@ -32,8 +32,8 @@
                 <h4>Current Order(s):</h4>
             </div>
 
-            <div >
-                <div *ngFor="let item of ordersList['response'].order; let i=index" fxLayout="row">
+            <div *ngIf="ordersList.length">
+                <div *ngFor="let item of ordersList; let i=index" fxLayout="row">
                     <mat-card class="card">
                         <div fxLayout="row">
                             <div class="rightborder index" fxFlex="40px">
@@ -62,11 +62,11 @@
                 </div>
                 <div class="mg1">
                     <div fxFlex="70" fxLayoutGap="30px">
-                        <button mat-raised-button color="warn" (click)="removeOrders('remove')">Remove</button>
+                        <button mat-raised-button color="warn" (click)="removeOrders()">Remove</button>
                         <button mat-raised-button color="accent" (click)="redirectTo()">Cancel</button>
                     </div>
                     <div fxFlex="20">
-                        <button mat-raised-button color="primary" (click)="removeOrders('complete')">Complete Order</button>
+                        <button mat-raised-button color="primary" (click)="completeOrder()">Complete Order</button>
                     </div>
                 </div>
             </div>

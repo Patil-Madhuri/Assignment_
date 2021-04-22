@@ -13,9 +13,9 @@ import { ViewOrderComponent } from '../view-order/view-order.component';
 export class OrderComponent implements OnInit {
   currentDate = new Date();
   // orderHistory = {}
-  orderHistory = {}
-  ordersList = {}
-
+  orderHistory = []
+  ordersList = []
+  grandTotal = ""
   constructor(private router: Router,
     private dialog: MatDialog,
     private snackBar: MatSnackBar,
@@ -37,9 +37,10 @@ export class OrderComponent implements OnInit {
   }
   getOrders() {
     this.apiService.getAllOrders().subscribe(response => {
-      this.ordersList = response
-      for (let index = 0; index < this.ordersList['response']['order'].length; index++) {
-        const element = this.ordersList['response']['order'][index];
+      this.ordersList = response['response']['order']
+      this.grandTotal = response['response'].total
+      for (let index = 0; index < this.ordersList.length; index++) {
+        const element = this.ordersList[index];
         element.tax = 10
       }
     })
@@ -47,36 +48,43 @@ export class OrderComponent implements OnInit {
 
   getOrdersHistory() {
     this.apiService.getOrderHistory().subscribe(response => {
-      this.orderHistory = response
-      for (let index = 0; index < this.orderHistory['response']['order'].length; index++) {
-        const element = this.orderHistory['response']['order'][index];
+      const mapped = Object.keys(response['response']).map(key => ({type: key, value: response['response'][key]}));
+      this.orderHistory = mapped;
+      console.log("orderhistory",this.orderHistory);
+      
+      for (let index = 0; index < this.orderHistory.length; index++) {
+        const element = this.orderHistory[index];
         element.date = new Date()
       }
     })
   }
 
-  removeOrders(val) {
+  removeOrders() {
     this.apiService.deleteOrder().subscribe(response => {
-      if (val == 'complete') {
-        this.snackBar.open("Order completed successfully", '', {
-          duration: 2000,
-        });
-        this.router.navigate(['home'])
-      } else {
-        this.snackBar.open("Order deleted successfully", '', {
-          duration: 2000,
-        });
-      }
-      this.getOrders()
+      this.snackBar.open("Order deleted successfully", '', {
+        duration: 2000,
+      });
+    })
+    this.getOrders()
+  }
+
+  completeOrder() {
+    this.apiService.gettransaction().subscribe(response => {
+      this.getOrdersHistory()
+      this.snackBar.open("Order completed successfully", '', {
+        duration: 2000,
+      });
     })
   }
   returnGT() {
-    let array = this.ordersList['response']['order'];
+    let array = this.ordersList;
     let taxTotal = 0;
     for (let index = 0; index < array.length; index++) {
       const element = array[index];
       taxTotal = taxTotal + element.tax
     }
-    return parseFloat(this.ordersList['response'].total + taxTotal).toFixed(2)
+    console.log(this.ordersList);
+
+    return parseFloat(this.grandTotal + taxTotal).toFixed(2)
   }
 }

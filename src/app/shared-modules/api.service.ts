@@ -22,7 +22,8 @@ export class ApiService implements HttpInterceptor {
         addproduct: 'add-product',
         editProduct: 'update-product',
         products: 'products',
-        ordersHistory:'orders-history'
+        ordersHistory: 'orders-history',
+        transaction: 'transaction'
     };
     get currentDate() {
         return new Date();
@@ -51,11 +52,15 @@ export class ApiService implements HttpInterceptor {
     addOrder(payload) {
         return this.http.post(this.urls.addorder, payload)
     }
-    deleteOrder(){
+    deleteOrder() {
         return this.http.delete(this.urls.getOrders)
     }
-    getOrderHistory(){
+    getOrderHistory() {
         return this.http.get(this.urls.ordersHistory)
+    }
+    gettransaction() {
+        return this.http.get(this.urls.transaction)
+
     }
     addProduct(payload) {
         return this.http.post(this.urls.addproduct, payload)
