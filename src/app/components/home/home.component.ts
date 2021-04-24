@@ -40,6 +40,7 @@ export class HomeComponent implements OnInit {
 
     }
     this.apiService.addOrder(postData).subscribe(response => {
+      this.getProducts()
       this.snackBar.open("Item added to order successfully", '', {
         duration: 2000,
       });
