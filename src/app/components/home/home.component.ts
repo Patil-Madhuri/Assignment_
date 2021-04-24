@@ -35,8 +35,8 @@ export class HomeComponent implements OnInit {
       "id": item.id,
       "title": item.title,
       "barcode": item.barcode,
-      "qty": item.qty ,
-      "price": item.price * item.qty
+      "qty": 1 ,
+      "price": item.price * 1
 
     }
     this.apiService.addOrder(postData).subscribe(response => {

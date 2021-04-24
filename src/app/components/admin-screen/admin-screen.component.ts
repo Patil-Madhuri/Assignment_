@@ -4,7 +4,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { AddComponent } from '../add/add.component';
 import { ApiService } from 'src/app/shared-modules/api.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
-
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { map } from 'rxjs/operators';
 @Component({
   selector: 'app-admin-screen',
   templateUrl: './admin-screen.component.html',
@@ -13,11 +14,12 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class AdminScreenComponent implements OnInit {
   currentDate = new Date();
   jsonArray = []
-  userName= "";
+  userName = "";
   constructor(private router: Router,
     private dialog: MatDialog,
     private snackBar: MatSnackBar,
-    private apiService: ApiService) { }
+    private apiService: ApiService,
+    private http: HttpClient) { }
 
   ngOnInit(): void {
     this.getProducts();
@@ -50,5 +52,17 @@ export class AdminScreenComponent implements OnInit {
     this.apiService.getAllProducts().subscribe(response => {
       this.jsonArray = response['response'];
     })
+  }
+
+  deleteItem(object) {
+    this.http.delete(`https://ecommerce-app-product.herokuapp.com/delete-product/${object.id}`).pipe(
+      map((response: Response) => {
+        this.snackBar.open("Product deleted successfully", '', {
+              duration: 2000,
+            });
+            this.getProducts()
+      }))
+      .subscribe();
+
   }
 }

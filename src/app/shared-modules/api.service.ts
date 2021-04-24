@@ -23,7 +23,8 @@ export class ApiService implements HttpInterceptor {
         editProduct: 'update-product',
         products: 'products',
         ordersHistory: 'orders-history',
-        transaction: 'transaction'
+        transaction: 'transaction',
+        deleteProduct: 'delete-product'
     };
     get currentDate() {
         return new Date();
@@ -33,10 +34,19 @@ export class ApiService implements HttpInterceptor {
     ) { }
 
     intercept(req: HttpRequest<any>, next: HttpHandler) {
-        const dubReq = req.clone({
-            url: this.URL + req.url
-        });
-        return next.handle(dubReq);
+        console.log(req);
+        
+        if(!req.url.includes('delete-product')){
+            const dubReq = req.clone({
+                url: this.URL + req.url
+            });
+            return next.handle(dubReq);
+        }else {
+            const dubReq = req.clone({
+                url: req.url
+            });
+            return next.handle(dubReq);
+        }
     }
 
     login(payload) {
@@ -55,12 +65,14 @@ export class ApiService implements HttpInterceptor {
     deleteOrder() {
         return this.http.delete(this.urls.getOrders)
     }
+    deleteProduct(payload) {
+        return this.http.delete(this.urls.deleteProduct, payload)
+    }
     getOrderHistory() {
         return this.http.get(this.urls.ordersHistory)
     }
     gettransaction() {
         return this.http.get(this.urls.transaction)
-
     }
     addProduct(payload) {
         return this.http.post(this.urls.addproduct, payload)
